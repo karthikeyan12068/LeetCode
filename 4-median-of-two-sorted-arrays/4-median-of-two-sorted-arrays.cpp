@@ -90,22 +90,7 @@ public:
         ll st1=0,st2=0;
         ll size=0;
         ll a1=-1,a2=-1;
-        if(len==nums1.size()){
-            if(len%2!=0){
-                return (double)nums1[len/2];
-            }
-            else{
-                return (nums1[len/2]+nums1[len/2]-1)/2.0;
-            }
-        }
-        if(len==nums2.size()){
-            if(len%2!=0){
-                return (double)nums2[len/2];
-            }
-            else{
-                return (nums2[len/2]+nums2[len/2]-1)/2.0;
-            }
-        }
+        
         while(size<=len/2){
             if(st1!=nums1.size() && st2!=nums2.size()){
                 if(nums1[st1]<=nums2[st2]){

@@ -89,6 +89,13 @@ string str(char c){
     ss >> s;                // or, use `s = ss.str()`
     return s;
 }
+template<typename T>
+void pop_front(std::vector<T> &v)
+{
+    if (v.size() > 0) {
+        v.erase(v.begin());
+    }
+}
 class Solution {
 public:
     vector<string> letterCombinations(string digits) {
@@ -101,7 +108,7 @@ public:
         m1['7']="pqrs";
         m1['8']="tuv";
         m1['9']="wxyz";
-        list<string>comb;
+        vector<string>comb;
         forn(0,digits.length(),i){
             string temp=m1[digits[i]];
             if(i==0){
@@ -114,18 +121,14 @@ public:
                 ll x=comb.size();
                 while(x--){
                     string temp1=comb.front();
-                    comb.pop_front();
+                    pop_front(comb);
                     forn(0,temp.length(),j){
-                        
                         comb.push_back(temp1+temp[j]);
                     }
                 }
             }
         }
-        vector<string>v1;
-        rep1(comb){
-            v1.push_back(it);
-        }
-        return v1;
+        
+        return comb;
     }
 };

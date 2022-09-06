@@ -23,7 +23,7 @@ public:
                 if(v.size()!=0){
                     stack.push({{cur,sum},v});
                     stack.top().second.push_back(cur->val);
-                    v=v2;
+                    v.clear();
                 }
                 else{
                     if(!stack.empty()){

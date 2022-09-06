@@ -13,7 +13,7 @@ class Solution {
 public:
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>>v1;
-        vector<int>v;
+        vector<int>v,v2={};
         stack<pair<pair<TreeNode*,int>,vector<int>>>stack;
         int sum=0;
         TreeNode* cur=root;
@@ -23,7 +23,7 @@ public:
                 if(v.size()!=0){
                     stack.push({{cur,sum},v});
                     stack.top().second.push_back(cur->val);
-                    v.clear();
+                    v=v2;
                 }
                 else{
                     if(!stack.empty()){

@@ -9,13 +9,13 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-string s="";
-string ret(TreeNode* root){
+
+string ret(TreeNode* root,string s){
     if(root==NULL){
         return "";
     }
     if(root->left!=NULL && root->right!=NULL || root->left==NULL && root->right!=NULL){
-        s=to_string(root->val)+"("+ret(root->left)+")"+"("+ret(root->right)+")";
+        s=to_string(root->val)+"("+ret(root->left,s)+")"+"("+ret(root->right,s)+")";
     }
     else{
         if(root->left==NULL && root->right==NULL){
@@ -23,7 +23,7 @@ string ret(TreeNode* root){
             return s;
         }
         if(root->right==NULL){
-            s=to_string(root->val)+"("+ret(root->left)+")";
+            s=to_string(root->val)+"("+ret(root->left,s)+")";
             return s;
         }
     }
@@ -34,10 +34,6 @@ public:
     string tree2str(TreeNode* root) {
         stack<TreeNode*>stack;
         TreeNode* cur=root;
-        if(s!=""){
-            s="";
-        }
-        string z=ret(root);
-        return s;
+        return ret(root,"");
     }
 };

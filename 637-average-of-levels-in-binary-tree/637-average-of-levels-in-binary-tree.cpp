@@ -27,14 +27,14 @@ public:
                     v1.push_back(cur->val);
                     v2.push_back(1);
                 }
-                cout<<h<<" ";
-                h++;
                 stack.push({cur,h});
+                h++;
                 cur=cur->left;
             }
             else{
                 cur=stack.top().first;
                 h=stack.top().second;
+                h++;
                 stack.pop();
                 cur=cur->right;
             }

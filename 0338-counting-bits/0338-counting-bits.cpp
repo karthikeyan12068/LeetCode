@@ -7,15 +7,12 @@ public:
                 v[i]=0;
             }
             else{
-                int dec=i;
-                int c=0;
-                while(dec>0){
-                    if(dec%2!=0){
-                        c++;
-                    }
-                    dec=dec/2;
+                if(i%2!=0){
+                    v[i]=v[i/2]+1;
                 }
-                v[i]=c;
+                else{
+                    v[i]=v[i/2];
+                }
             }
         }
         return v;

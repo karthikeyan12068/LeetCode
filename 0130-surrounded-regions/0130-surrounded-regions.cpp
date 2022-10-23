@@ -5,7 +5,7 @@ public:
         if(i<=0 || j<=0 || i>=v1.size()-1 || j>=v1[0].size()-1){
             return;
         }
-        if(v1[i][j]=='X' || v1[i][j]=='O'){
+        if(v1[i][j]=='X' || v1[i][j]=='O' || v1[i][j]=='A'){
             return;
         }
         if(v1[i][j]=='-'){
@@ -13,7 +13,7 @@ public:
                 v1[i][j]='X';
             }
             else{
-                v1[i][j]='O';
+                v1[i][j]='A';
             }
         }
         mark(v1,i-1,j,t);
@@ -54,6 +54,13 @@ public:
                     else{
                         mark(v1,i,j,false);
                     }
+                }
+            }
+        }
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(v1[i][j]=='A'){
+                    v1[i][j]='O';
                 }
             }
         }

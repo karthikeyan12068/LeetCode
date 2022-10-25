@@ -11,7 +11,7 @@ public:
         bool x=true;
         for(auto it:m1[val]){
             x=x&&ret(it,m1,vis,vis1);
-            vis[it]=0;
+            //vis[it]=0;
             vis1[it]++;
         }
         return x;

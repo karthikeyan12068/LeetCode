@@ -27,10 +27,10 @@ public:
         }
         map<int,int>vis1;
         bool x=true;
-        for(int i=0;i<v1.size();i++){
+        for(auto it:m1){
             map<int,int>vis;
-            if(vis1[v1[i][0]]==0){
-                x=x&&ret(v1[i][0],m1,vis,vis1);
+            if(vis1[it.first]==0){
+                x=x&&ret(it.first,m1,vis,vis1);
                 if(x==false){
                     return x;
                 }

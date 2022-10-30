@@ -1,26 +1,31 @@
 class Solution {
 public:
-    bool canMeasureWater(int x, int y, int t) {
-        int steps[]={x,-x,y,-y};
-        int z=x+y;
-        queue<int>q;
-        vector<int>vis(z+1,0);
-        q.push(0);
-        vis[0]=1;
-        while(!q.empty()){
-            int node=q.front();
-            q.pop();
-            if(node==t){
-                return true;
-            }
-            for(int i=0;i<4;i++){
-                int n=node+steps[i];
-                if(n>=0 && n<=z && vis[n]==0){
-                    q.push(n);
-                    vis[n]=1;
-                }
-            }
+    bool ret(int cur,int x,int y,int z,int t,vector<int>&vis){
+        if(cur==t){
+            return true;
         }
-        return false;
+        if(vis[cur]!=0){
+            return false;
+        }
+        vis[cur]=1;
+        bool x1=false,x2=false,x3=false,x4=false;
+        if(cur+x<=z){
+            x1=ret(cur+x,x,y,z,t,vis);
+        }
+        if(cur-x>=0){
+            x2=ret(cur-x,x,y,z,t,vis);
+        }
+        if(cur+y<=z){
+            x3=ret(cur+y,x,y,z,t,vis);
+        }
+        if(cur-y>=0){
+            x4=ret(cur-y,x,y,z,t,vis);
+        }
+        return x1||x2||x3||x4;
+    }
+    bool canMeasureWater(int x, int y, int t) {
+        int z=x+y;
+        vector<int>vis(z+1,0);
+        return ret(0,x,y,x+y,t,vis);
     }
 };

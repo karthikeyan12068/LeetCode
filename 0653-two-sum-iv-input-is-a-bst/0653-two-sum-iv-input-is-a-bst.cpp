@@ -21,11 +21,11 @@ public:
     bool findTarget(TreeNode* root, int k) {
         map<int,int>m1;
         preorder(root,m1);
-        for(auto it=m1.begin();it!=m1.end();it++){
-            if(m1[it->first]!=0){
-                if(m1[k-it->first]>0){
-                    if(k-it->first==it->first){
-                        if(m1[k-it->first]>=2){
+        for(auto it:m1){
+            if(m1[it.first]!=0){
+                if(m1[k-it.first]>0){
+                    if(k-it.first==it.first){
+                        if(m1[k-it.first]>=2){
                             return true;
                         }
                     }

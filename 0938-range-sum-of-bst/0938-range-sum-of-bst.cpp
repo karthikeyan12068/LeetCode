@@ -12,16 +12,18 @@
 
 class Solution {
 public:
-    int sum=0;
+    void pre(TreeNode* root,int &sum,int low,int high){
+        if(root!=NULL){
+            if(root->val>=low && root->val<=high){
+                sum+=root->val;
+            }
+            pre(root->left,sum,low,high);
+            pre(root->right,sum,low,high);
+        }
+    }
     int rangeSumBST(TreeNode* root, int low, int high) {
-        if(root==NULL){
-            return sum;
-        }
-        if(root->val>=low && root->val<=high){
-            sum+=root->val;
-        }
-        rangeSumBST(root->left,low,high);
-        rangeSumBST(root->right,low,high);
+        int sum=0;
+        pre(root,sum,low,high);
         return sum;
     }
 };

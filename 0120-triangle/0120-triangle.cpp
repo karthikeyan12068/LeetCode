@@ -15,7 +15,7 @@ public:
         int row=triangle.size();
         vector<vector<int>>dp(row,vector<int>(row,-1));
         int sol=INT_MAX;
-        sol=min(sol,check(triangle,0,0,dp)) ;
+        sol=check(triangle,0,0,dp);
      return sol;
     }
 };

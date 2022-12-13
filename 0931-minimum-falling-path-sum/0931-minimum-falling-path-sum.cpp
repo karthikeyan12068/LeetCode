@@ -2,8 +2,12 @@ class Solution {
 public:
     int f(int i, int j, vector<vector<int>> &mat, vector<vector<int>> &dp)
     {
-        if(j<0 || j>=mat[0].size()) return 1e8;
-        if(i==0) return mat[0][j];
+        if(j<0 || j>=mat[0].size()){
+            return 1000000000;
+        }
+        if(i==0){ 
+            return mat[0][j];
+        }
         if(dp[i][j] != -1) return dp[i][j];
 
         int u=mat[i][j] + f(i-1, j, mat, dp);

@@ -1,19 +1,6 @@
 class Solution {
 public:
-    int ret(int n,vector<int>&dp){
-        if(n<0){
-            return 1000000;
-        }
-        if(n==0){
-            return 0;
-        }
-        if(dp[n]!=INT_MAX){
-            return dp[n];
-        }
-        int left=1+ret(n-2,dp);
-        int right=1+ret(n-3,dp);
-        return dp[n]=min(left,right);
-    }
+    
     int minimumRounds(vector<int>& tasks) {
         map<int,int>m1;
         for(int i=0;i<tasks.size();i++){
@@ -21,11 +8,24 @@ public:
         }
         int c=0;
         for(auto it:m1){
-            vector<int>dp(it.second+1,INT_MAX);
-            int ans=ret(it.second,dp);
-            if(ans<=100000){
-                c+=ans;
-            }
+            int n=it.second;
+           if(it.second!=1){
+               if(it.second==2){
+                   c++;
+               }
+               else{
+                   if(n%3!=0){
+                       while(n%3!=0){
+                           n-=2;
+                           c++;
+                       }
+                       c+=n/3;
+                   }
+                   else{
+                       c+=n/3;
+                   }
+               }
+           }
             else{
                 return -1;
             }

@@ -2,21 +2,14 @@ class Solution {
 public:
    
     int maxIceCream(vector<int>& costs, int coins) {
-        priority_queue <int, vector<int>, greater<>> pq;
-        for(int i=0;i<costs.size();i++){
-            pq.push(costs[i]);
-        }
+        sort(costs.begin(),costs.end());
         int c=0;
-        while(true){
-            if(coins-pq.top()<0 || pq.empty()){
-                break;
+        for(int i=0;i<costs.size();i++){
+            if(coins-costs[i]<0){
+                return c;
             }
             c++;
-            coins-=pq.top();
-            pq.pop();
-            if(coins<=0){
-                break;
-            }
+            coins-=costs[i];
         }
         return c;
     }

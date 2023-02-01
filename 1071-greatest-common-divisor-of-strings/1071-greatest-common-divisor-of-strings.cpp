@@ -2,14 +2,29 @@ class Solution {
 public:
     string ret(string chk,string str1,string str2){
         string c=chk;
+        int f=0;
         while(chk.length()<=str1.length()){
-            if(chk.length()==str2.length() && chk!=str2){
+            if(chk.length()==str2.length() && chk!=str2 || chk.length()>str1.length() && f==0){
                 return "";  
             }
-            if(chk.length()==str1.length() && chk!=str1){
+            else{
+               if(chk.length()==str2.length() && chk==str2){
+                   f=1;
+               } 
+            }
+            if(chk.length()==str1.length() && chk!=str1 || chk.length()>=str1.length() && f==0){
                 return "";
             }
+            else{
+                if(chk.length()==str1.length() && chk==str1){
+                    f=2;
+                    break;
+                }
+            }
             chk+=c;
+        }
+        if(f!=2){
+            return "";
         }
         return c;
     }
@@ -24,17 +39,10 @@ public:
             }
         }
         string ans="";
-        for(int i=1;i<=sqrt(str1.length());i++){
-            if(str1.length()%i==0){
-                if(str2.length()%i==0){
-                    string z=ret(temp+str2.substr(0,i),str1,str2);
-                    ans=(ans.length()<z.length())?z:ans;
-                }
-                if((str2.length()%(str1.length()/i))==0){
-                    string z=ret(temp+str2.substr(0,(str1.length()/i)),str1,str2);
-                    ans=(ans.length()<z.length())?z:ans;
-                }
-            }
+        for(int i=0;i<str2.length();i++){
+            temp+=str2[i];
+            string z=ret(temp,str1,str2);
+            ans=(z.length()>ans.length())?z:ans;
         }
         return ans;
     }

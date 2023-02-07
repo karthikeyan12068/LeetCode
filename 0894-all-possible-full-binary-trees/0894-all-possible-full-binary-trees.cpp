@@ -24,7 +24,7 @@ public:
             m1[n]=ans;
             return;
         }
-        for(int i=0;i<n;i++){
+        for(int i=1;i<n;i++){
             int l=i,r=n-i-1;
             vector<TreeNode*>left;
             vector<TreeNode*>right;

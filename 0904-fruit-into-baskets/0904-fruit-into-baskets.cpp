@@ -1,3 +1,5 @@
+#pragma GCC optimize("Ofast","inline","-ffast-math")
+#pragma GCC target("avx,mmx,sse2,sse3,sse4")
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {

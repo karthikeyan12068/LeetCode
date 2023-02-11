@@ -1,40 +1,40 @@
 class Solution {
 public:
-    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& redEdges, vector<vector<int>>& blueEdges) {
-        //Colour Code for Red is 1 and for Blue is 2
-        //Colour 0 indicates no colour
-        vector<pair<int,int>> adj[n];
-        for(auto &i:redEdges){
-            int u=i[0],v=i[1];
-            adj[u].push_back({v,1});
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& rd, vector<vector<int>>& bl) {
+        vector<pair<int,int>>adj[n];
+        for(auto it:rd){
+            adj[it[0]].push_back({it[1],1});
         }
-        for(auto &i:blueEdges){
-            int u=i[0],v=i[1];
-            adj[u].push_back({v,2});
+        for(auto it:bl){
+            adj[it[0]].push_back({it[1],2});
         }
-        vector<vector<int>> dist(n,vector<int>(3,INT_MAX));/* dist[i][j] denotes minimum distance to reach node i with prev edge coloured as j */
-        dist[0][0]=0;
-        queue<pair<int,pair<int,int>>> pq;//{distance,{node,colour}}
-        pq.push({0,{0,0}});
-        while(!pq.empty()){
-            int dis=pq.front().first;
-            int currNode=pq.front().second.first;
-            int colour=pq.front().second.second;
-            pq.pop();
-            for(auto &i:adj[currNode]){
-                int adjNode=i.first;
-                int newColour=i.second;
-                if(colour != newColour and dist[adjNode][newColour]>dis+1){
-                    dist[adjNode][newColour]=dis+1;
-                    pq.push({dis+1,{adjNode,newColour}});
+        vector<vector<int>>ans(n,vector<int>(3,INT_MAX));
+        queue<pair<int,pair<int,int>>>q;
+        q.push({0,{0,0}});
+        ans[0][0]=0;
+        while(!q.empty()){
+            int dist=q.front().first;
+            int curnode=q.front().second.first;
+            int curcolor=q.front().second.second;
+            q.pop();
+            for(auto it:adj[curnode]){
+                int newcol=it.second;
+                int adjnode=it.first;
+                if(curcolor!=newcol && ans[adjnode][newcol]>dist+1){
+                    ans[adjnode][newcol]=dist+1;
+                    q.push({dist+1,{adjnode,newcol}});
                 }
             }
         }
-        vector<int> res(n,INT_MAX);
-        for(int i=0;i<n;i++){
-            int dis=min(dist[i][0],min(dist[i][1],dist[i][2]));
-            res[i]=(dis==INT_MAX)?-1:dis;
+        vector<int>ret(n,INT_MAX);
+        for(int i=0;i<ans.size();i++){
+            for(int j=0;j<3;j++){
+                ret[i]=min(ret[i],ans[i][j]);
+            }
+            if(ret[i]==INT_MAX){
+                ret[i]=-1;
+            }
         }
-        return res;
+        return ret;
     }
 };

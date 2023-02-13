@@ -8,10 +8,20 @@ public:
         if(low%2==0){
             low++;
         }
-        while(low<=high){
-            low+=2;
-            c++;
+        if(high%2==0){
+            high--;
         }
-        return c;
+        if(low==high){
+            c=1;
+        }
+        else{
+            if(low>high){
+                return 0;
+            }
+            else{
+                c=2;
+            }
+        }
+        return c+(high-low-1)/2;
     }
 };

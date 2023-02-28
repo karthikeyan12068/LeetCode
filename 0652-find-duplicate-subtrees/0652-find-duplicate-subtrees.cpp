@@ -11,17 +11,13 @@
  */
 class Solution {
 public:
-    vector<int> ret(TreeNode* root,map<vector<int>,int>&m1,vector<TreeNode*>&ans){
+    string ret(TreeNode* root,unordered_map<string,int>&m1,vector<TreeNode*>&ans){
         if(root==NULL){
-            return {-201};
+            return {"-201$"};
         }
-        vector<int>leftSubtree=ret(root->left,m1,ans);
-        vector<int>rightSubtree=ret(root->right,m1,ans);
-        for(auto it:rightSubtree){
-            leftSubtree.push_back(it);
-        }
-        leftSubtree.push_back(root->val);
-        
+        string leftSubtree=ret(root->left,m1,ans);
+        string rightSubtree=ret(root->right,m1,ans);
+        leftSubtree+=rightSubtree+to_string(root->val)+"$";
         m1[leftSubtree]++;
         if(m1[leftSubtree]==2){
             ans.push_back(root);
@@ -30,7 +26,7 @@ public:
     }
     vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
         vector<TreeNode*>ans;
-        map<vector<int>,int>m1;
+        unordered_map<string,int>m1;
         ret(root,m1,ans);
         return ans;
     }

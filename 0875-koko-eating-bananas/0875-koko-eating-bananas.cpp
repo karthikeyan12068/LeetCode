@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool ret(vector<int>&piles,int h,int time){
+    bool ret(vector<int>&piles,int &h,int &time){
         int t=0;
         for(int i=0;i<piles.size();i++){
             int mul=ceil((double)piles[i]/time);

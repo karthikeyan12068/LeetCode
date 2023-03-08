@@ -20,7 +20,7 @@ public:
             else{
                 left=mid+1;
             }
-            cout<<mid<<" "<<left<<" "<<right<<"\n";
+            
         }
         return left;
     }

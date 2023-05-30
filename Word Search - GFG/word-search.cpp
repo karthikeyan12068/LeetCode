@@ -26,7 +26,7 @@ public:
         bool pos3=ret(grid,word,i,j+1,ptr+1,dp);
         bool pos4=ret(grid,word,i,j-1,ptr+1,dp);
         grid[i][j]=temp;
-        return dp[i][j][ptr]=pos1|pos2|pos3|pos4;
+        return pos1|pos2|pos3|pos4;
     }
     bool isWordExist(vector<vector<char>>& board, string word) {
         vector<vector<vector<bool>>>dp(board.size(),vector<vector<bool>>(board[0].size(), vector<bool>(word.length(),false)));

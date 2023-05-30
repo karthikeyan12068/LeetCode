@@ -18,9 +18,7 @@ public:
         if(grid[i][j]!=word[ptr] || grid[i][j]=='$'){
             return false;
         }
-        if(dp[i][j][ptr]){
-            return dp[i][j][ptr];
-        }
+        
         char temp=grid[i][j];
         grid[i][j]='$';
         bool pos1=ret(grid,word,i+1,j,ptr+1,dp);

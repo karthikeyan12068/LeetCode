@@ -10,51 +10,28 @@ class Solution
 	vector<vector<int>>nearest(vector<vector<int>>grid)
 	{
 	    vector<pair<int,int>>pos={{-1,0},{0,1},{1,0},{0,-1}};
+	    queue<pair<pair<int,int>,int>>q;
 	    for(int i=0;i<grid.size();i++){
 	        for(int j=0;j<grid[0].size();j++){
 	            if(grid[i][j]==1){
 	                grid[i][j]=INT_MAX;
+	                q.push({{i,j},0});
 	            }
 	        }
 	    }
-	    for(int i=0;i<grid.size();i++){
-	        for(int j=0;j<grid[0].size();j++){
-	           if(grid[i][j]==0){
-	               set<pair<int,int>>s;
-	               s.insert({i,j});
-	                queue<pair<int,int>>q;
-	                q.push({i,j});
-	                int ans=INT_MAX;
-	                while(ans==INT_MAX){
-	                    int x=q.size();
-	                    while(x--){
-	                        auto node=q.front();
-	                        q.pop();
-	                        for(auto it:pos){
-	                            int x=it.first+node.first;
-	                            int y=it.second+node.second;
-	                            if(x>=0 && x<grid.size() && y>=0 && y<grid[0].size()){
-	                                int bef=s.size();
-	                                s.insert({x,y});
-	                                if(s.size()==bef){
-	                                    continue;
-	                                }
-	                                if(grid[x][y]==INT_MAX || grid[x][y]!=0){
-	                                    if(grid[x][y]==INT_MAX){
-	                                        ans=min(ans,abs(x-i)+abs(y-j));
-	                                    }
-	                                    else{
-	                                        q.push({x,y});
-	                                    }
-	                                }
-	                                else{
-	                                    q.push({x,y});
-	                                }
-	                            }
-	                        }
-	                    }
+	    while(!q.empty()){
+	        int x=q.size();
+	        while(x--){
+	            auto node=q.front();
+	            q.pop();
+	            for(auto it:pos){
+	                int x=node.first.first+it.first;
+	                int y=node.first.second+it.second;
+	                int val=node.second+1;
+	                if(x>=0 && y>=0 && x<grid.size() && y<grid[0].size() && grid[x][y]==0){
+	                    grid[x][y]=val;
+	                    q.push({{x,y},val});
 	                }
-	                grid[i][j]=ans;
 	            }
 	        }
 	    }

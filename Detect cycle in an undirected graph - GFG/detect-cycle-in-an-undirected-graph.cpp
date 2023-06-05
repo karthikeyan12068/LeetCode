@@ -5,7 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool detect(vector<int>adj[],vector<int>&vis,int &cur){
+    bool detect1(vector<int>adj[],vector<int>&vis,int &cur){
         queue<pair<int,int>>q;
         q.push({cur,-1});
         while(!q.empty()){
@@ -28,13 +28,24 @@ class Solution {
         }
         return false;
     }
+    bool detect2(vector<int>adj[],vector<bool>&vis,int cur,int parent){
+        if(vis[cur]==true){
+            return false;
+        }
+        vis[cur]=true;
+        for(auto it:adj[cur]){
+            if(it!=parent){
+                vis[cur]=vis[cur] && detect2(adj,vis,it,cur);
+            }
+        }
+        return vis[cur];
+    }
     bool isCycle(int V, vector<int> adj[]) {
         // Code here
-        vector<int>vis(V);
+        vector<bool>vis(V);
         for(int i=0;i<V;i++){
-            if(vis[i]==0){
-                vis[i]=1;
-                if(detect(adj,vis,i)){
+            if(vis[i]==false){
+                if(!detect2(adj,vis,i,-1)){
                     return true;
                 }
             }

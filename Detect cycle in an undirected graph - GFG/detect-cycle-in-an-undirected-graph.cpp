@@ -33,6 +33,7 @@ class Solution {
         vector<int>vis(V);
         for(int i=0;i<V;i++){
             if(vis[i]==0){
+                vis[i]=1;
                 if(detect(adj,vis,i)){
                     return true;
                 }

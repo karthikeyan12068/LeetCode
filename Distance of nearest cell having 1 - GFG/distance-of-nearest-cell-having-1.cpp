@@ -20,6 +20,8 @@ class Solution
 	    for(int i=0;i<grid.size();i++){
 	        for(int j=0;j<grid[0].size();j++){
 	           if(grid[i][j]==0){
+	               set<pair<int,int>>s;
+	               s.insert({i,j});
 	                queue<pair<int,int>>q;
 	                q.push({i,j});
 	                int ans=INT_MAX;
@@ -32,6 +34,11 @@ class Solution
 	                            int x=it.first+node.first;
 	                            int y=it.second+node.second;
 	                            if(x>=0 && x<grid.size() && y>=0 && y<grid[0].size()){
+	                                int bef=s.size();
+	                                s.insert({x,y});
+	                                if(s.size()==bef){
+	                                    continue;
+	                                }
 	                                if(grid[x][y]==INT_MAX || grid[x][y]!=0){
 	                                    if(grid[x][y]==INT_MAX){
 	                                        ans=min(ans,abs(x-i)+abs(y-j));

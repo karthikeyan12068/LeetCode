@@ -16,9 +16,37 @@ class Solution
 	    }
 	    s.push(node);
 	}
+	void khan_algo(int V, vector<int> adj[],vector<int>&ans){
+	    queue<int>q;
+	    vector<int>indeg(V);
+	    for(int i=0;i<V;i++){
+	        for(auto it:adj[i]){
+	            indeg[it]++;
+	        }
+	    }
+	    for(int i=0;i<V;i++){
+	        if(indeg[i]==0){
+	            q.push(i);
+	        }
+	    }
+	    while(!q.empty()){
+	        int x=q.size();
+	        while(x--){
+	            int node=q.front();
+	            q.pop();
+	            ans.push_back(node);
+	            for(auto it:adj[node]){
+	                indeg[it]--;
+	                if(indeg[it]==0){
+	                    q.push(it);
+	                }
+	            }
+	        }
+	    }
+	}
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    vector<int>vis(V,-1),ans;
+	    /*vector<int>vis(V,-1),ans;
 	    stack<int>s;
 	    for(int i=0;i<V;i++){
 	        if(vis[i]==-1){
@@ -29,6 +57,9 @@ class Solution
 	        ans.push_back(s.top());
 	        s.pop();
 	    }
+	    return ans;*/
+	    vector<int>ans;
+	    khan_algo(V,adj,ans);
 	    return ans;
 	}
 };

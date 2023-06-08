@@ -11,7 +11,7 @@ class Solution{
     public:
     string findOrder(string dict[], int N, int K) {
         string ans="";
-        if(N>=2){
+     
             vector<vector<int>>adj(K);
             for(int i=0;i<N-1;i++){
                 string s1=dict[i];
@@ -52,16 +52,7 @@ class Solution{
                     }
                 }
             }
-        }
-        else{
-            map<char,int>m1;
-            for(auto it:dict[0]){
-                if(m1[it]==0){
-                    ans+=it;
-                    m1[it]++;
-                }
-            }
-        }
+        
         return ans;
     }
 };

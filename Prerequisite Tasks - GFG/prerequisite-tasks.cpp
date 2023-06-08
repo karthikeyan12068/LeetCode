@@ -26,16 +26,22 @@ public:
         return ans;
     }
     bool approach2(vector<vector<int>>&adj,int cur,vector<int>&vis){
-        if(vis[cur]!=-1 || vis[cur]==0){
+        if(vis[cur]==2 || vis[cur]==0){
             return false;
         }
-        vis[cur]=1;
+        if(vis[cur]==1){
+            return true;
+        }
+        vis[cur]=2;
         bool ans=true;
         for(auto it:adj[cur]){
             ans=ans && approach2(adj,it,vis);
         }
         if(ans==false){
             vis[cur]=0;
+        }
+        else{
+            vis[cur]=1;
         }
         return ans;
     }
@@ -77,16 +83,17 @@ public:
 	    for(int i=0;i<prerequisites.size();i++){
 	        adj[prerequisites[i].first].push_back(prerequisites[i].second);
 	    }
-	    vector<char>vis1(N,'b');
+	    /*vector<int>vis1(N,-1);
 	    for(int i=0;i<N;i++){
-	        if(vis1[i]=='b'){
-	            bool ans=approach1(adj,i,vis1);
+	        if(vis1[i]==-1){
+	            bool ans=approach2(adj,i,vis1);
 	            if(ans==false){
 	                return false;
 	            }
 	        }
 	    }
-	    return true;
+	    return true;*/
+	    return approach3(adj,N);
 	}
 };
 

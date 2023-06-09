@@ -9,9 +9,6 @@ using namespace std;
 class Solution {
   public:
     void topo(vector<vector<pair<int,int>>>&adj,int node,int val,stack<pair<int,int>>&s,vector<int>&vis){
-        if(vis[node]==1){
-            return;
-        }
         vis[node]=1;
         for(auto it:adj[node]){
             topo(adj,it.first,it.second,s,vis);

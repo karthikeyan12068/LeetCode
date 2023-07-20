@@ -21,7 +21,7 @@ public:
             }
             r++;
         }
-        cout<<sum<<' '<<l<<'\n';
+        //cout<<sum<<' '<<l<<'\n';
         return sum;
     }
     int subarraysWithKDistinct(vector<int>& nums, int k) {

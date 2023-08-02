@@ -31,7 +31,8 @@ class Solution:
                     for k in range(j+1,len(nums),1):
                         nums[k]=temp[x]
                         x+=1
-                    break
+                    return
+            return
         for i in range(val-1):
             #for every factorial iter we update array once
             ret()

@@ -1,48 +1,37 @@
 class Solution {
 public:
-    vector<int>dp;
-    bool ret(string &s,int i,unordered_map<string,int>&m){
-        if(i==s.length()){
+    bool ret(string &s,int i,map<string,int>&m,vector<int>&dp){
+        if(i>=s.length()){
             return true;
         }
         if(dp[i]!=-1){
             if(dp[i]==0){
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         string temp="";
-        bool ans=true;
-        int f=0;
+        bool ans=false;
         for(int j=i;j<s.length();j++){
             temp+=s[j];
             if(m[temp]>0){
-                ans=ans && ret(s,j+1,m);
-                if(ans==true){
-                    f=1;
-                    break;
-                }
-                else{
-                    ans=true;
-                }
+                ans=ans || ret(s,j+1,m,dp);
             }
-            
         }
-        if(f==1){
-            dp[i]=1;
+        if(ans==true){
+            dp[i]=0;
         }
         else{
-            ans=false;
-            dp[i]=0;
+            dp[i]=1;
         }
         return ans;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
-        dp.resize(s.length(),-1);
-        unordered_map<string,int>m;
+        map<string,int>m;
         for(auto it:wordDict){
             m[it]++;
         }
-        return ret(s,0,m);
+        vector<int>dp(s.length(),-1);
+        return ret(s,0,m,dp);
     }
 };

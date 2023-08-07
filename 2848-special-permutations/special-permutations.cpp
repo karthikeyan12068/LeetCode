@@ -20,7 +20,7 @@ public:
     }
     int specialPerm(vector<int>& nums) {
         long long int x=0;
-        vector<vector<long long int>>dp(nums.size()+1, vector<long long int>(100000,-1));
+        vector<vector<long long int>>dp(nums.size()+1, vector<long long int>((1<<nums.size()+1),-1));
         return ret(nums,0,-1,x,dp);
     }
 };

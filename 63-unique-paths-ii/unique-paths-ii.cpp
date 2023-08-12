@@ -12,8 +12,11 @@ public:
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
+        int temp=grid[i][j];
+        grid[i][j]=-1;
         int pos1=ret(grid,i+1,j);
         int pos2=ret(grid,i,j+1);
+        grid[i][j]=temp;
         return dp[i][j]=pos1+pos2;
     }
     int uniquePathsWithObstacles(vector<vector<int>>&grid) {

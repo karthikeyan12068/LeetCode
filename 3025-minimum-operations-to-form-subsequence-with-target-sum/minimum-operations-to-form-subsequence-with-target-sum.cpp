@@ -20,9 +20,7 @@ public:
         }
         
         reverse(bin2.begin(),bin2.end());
-        for(auto it:bin2){
-            cout<<it<<' ';
-        }
+        
         long long int sumused=0,rightsum=0;
         long long int i1=0,c=0;
         for(long long int i=31;i>=0;i--){

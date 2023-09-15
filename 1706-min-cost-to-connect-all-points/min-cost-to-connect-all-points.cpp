@@ -1,30 +1,58 @@
+class DSU{
+    vector<long long int>parent,size;
+public:
+    DSU(long long int n){
+        parent.resize(n);
+        size.resize(n,1);
+        for(long long int i=0;i<n;i++){
+            parent[i]=i;
+        }
+    }
+    long long int fup(long long int u){
+        if(parent[u]==u){
+            return u;
+        }
+        return parent[u]=fup(parent[u]);
+    }
+    void combine(long long int u,long long int v){
+        long long int u1=fup(u);
+        long long int v1=fup(v);
+        if(u1==v1){
+            return;
+        }
+        if(size[v1]>size[u1]){
+            parent[u1]=v1;
+            size[v1]+=size[u1];
+        }
+        else{
+            parent[v1]=u1;
+            size[u1]+=size[v1];
+        }
+    }
+};
 class Solution {
 public:
+
     int minCostConnectPoints(vector<vector<int>>& points) {
-        vector<vector<pair<int,int>>>adj(points.size());
-        for(int i=0;i<points.size();i++){
-            for(int j=i+1;j<points.size();j++){
-                adj[i].push_back({j,abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1])});
-                adj[j].push_back({i,abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1])});
+        vector<pair<long long int,pair<long long int,long long int>>>v;
+        for(long long int i=0;i<points.size();i++){
+            for(long long int j=i+1;j<points.size();j++){
+                v.push_back({abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]),{i,j}});
             }
         }
-        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<>>q;
-        q.push({0,{0,-1}});
-        vector<int>vis(points.size(),-1);
-        int sum=0;
-        while(!q.empty()){
-            auto node=q.top();
-            q.pop();
-            if(vis[node.second.first]==-1){
-                vis[node.second.first]=1;
-                sum+=node.first;
-                for(auto it:adj[node.second.first]){
-                    if(it.first!=node.second.second && vis[it.first]==-1){
-                        q.push({it.second,{it.first,node.second.first}});
-                    }
-                }
+        sort(v.begin(),v.end());
+        DSU d1(points.size());
+        long long int ans=0;
+        for(long long int i=0;i<v.size();i++){
+            
+            long long int u1=d1.fup(v[i].second.first);
+            long long int v1=d1.fup(v[i].second.second);
+            if(u1!=v1){
+                d1.combine(u1,v1);
+                ans+=v[i].first;
             }
+            
         }
-        return sum;
+        return ans;
     }
 };

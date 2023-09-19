@@ -5,7 +5,6 @@ class Solution:
         
         for i in range(len(prerequisites)):
             adj[prerequisites[i][0]].append(prerequisites[i][1])
-        print(adj)
         for i in range(len(queries)):
             tar=queries[i][1]
             q=[]

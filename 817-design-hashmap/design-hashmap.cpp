@@ -1,38 +1,42 @@
 class MyHashMap {
 public:
-    struct ComparePairs {
-        bool operator()(const std::pair<int, int>& a, const std::pair<int, int>& b) const {
-            return a.first < b.first;
-        }
-    };
-    set<pair<int,int>,ComparePairs>s;
+   
+    set<pair<int,int>>s;
     MyHashMap() {
-        
+        s.clear();
     }
     
     void put(int key, int value) {
         pair<int,int>p=make_pair(key,0);
-        auto it=s.find(p);
+        auto it=s.lower_bound(p);
         if(it!=s.end()){
-            s.erase(it);
+            if((*it).first==key){
+                s.erase(it);
+            }
         }
         s.insert({key,value});
     }
     
     int get(int key) {
         pair<int,int>p=make_pair(key,0);
-        auto it=s.find(p);
+
+        auto it=s.lower_bound(p);
+
         if(it!=s.end()){
-            return (*it).second;
+            if((*it).first==key){
+                return (*it).second;
+            }
         }
         return -1;
     }
     
     void remove(int key) {
          pair<int,int>p=make_pair(key,0);
-        auto it=s.find(p);
+        auto it=s.lower_bound(p);
         if(it!=s.end()){
-            s.erase(it);
+           if((*it).first==key){
+                s.erase(it);
+           }
         }
     }
 };

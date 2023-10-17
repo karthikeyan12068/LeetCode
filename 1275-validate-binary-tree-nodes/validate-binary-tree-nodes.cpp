@@ -48,14 +48,8 @@ public:
                 }
             }
         }
-        int c=0;
-        for(auto it:vis){
-            cout<<it<<' ';
-            if(it==2){
-                c++;
-            }
-        }
-        if(c>1){
+        
+        if(count(vis.begin(),vis.end(),2)>1){
             return false;
         }
         return true;

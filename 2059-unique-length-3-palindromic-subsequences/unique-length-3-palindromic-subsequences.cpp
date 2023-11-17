@@ -2,7 +2,7 @@ class Solution {
 public:
     
     int countPalindromicSubsequence(string s) {
-        set<string>st;
+        map<string,int>m;
         map<char,vector<int>>store;
         for(int i=0;i<s.length();i++){
             store[s[i]].push_back(i);
@@ -26,7 +26,7 @@ public:
                     if(temp.front()!=temp.back()){
                         continue;
                     }
-                    
+                    if(m.find(temp)==m.end()){
                         auto it1=lower_bound(store[i].begin(),store[i].end(),-1);
                         int ind1=it1-store[i].begin();
                         auto it2=lower_bound(store[j].begin(),store[j].end(),store[i][ind1]+1);
@@ -41,16 +41,15 @@ public:
                         int ind3=-1;
                         if(it3!=store[k].end()){
                             ind3=it3-store[k].begin();
-                            
-                            st.insert(temp);
+                            m[temp]++;
                         }
                         else{
                             continue;
                         }
-                    
+                    }
                 }
             }
         }  
-        return st.size();  
+        return m.size();  
     }
 };

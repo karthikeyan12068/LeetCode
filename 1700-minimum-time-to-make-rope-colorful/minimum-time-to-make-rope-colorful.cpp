@@ -1,31 +1,24 @@
 class Solution {
 public:
     int minCost(string colors, vector<int>& neededTime) {
-       int ans=0;
-       for(int i=0;i<colors.length();i++){
-           multiset<int>s;
-           int j;
-           s.insert(neededTime[i]);
-           for(j=i+1;j<colors.length();j++){
-               if(colors[j]==colors[j-1]){
-                   s.insert(neededTime[j]);
-               }
-               else{
-                   break;
-               }
-           }
-           i=j-1;
-           int x=s.size()-1;
-           for(auto it:s){
-               if(x>0){
-                ans+=it;
-                x--;
-               }
-               else{
-                   break;
-               }
-           }
-       } 
-       return ans;
+        int i=0,j=1;
+        int ans=0;
+        while(j<colors.length()){
+            priority_queue<int,vector<int>,greater<>>s;
+            s.push(neededTime[i]);
+            if(colors[i]==colors[j]){
+                while(j<colors.length() && colors[i]==colors[j]){
+                    s.push(neededTime[j]);
+                    j++;
+                }
+            }
+            while(s.size()>1){
+                ans+=s.top();
+                s.pop();
+            }
+            i=j;
+            j++;
+        }
+        return ans;
     }
 };

@@ -31,10 +31,7 @@ public:
         for(int i=0;i<startTime.size();i++){
             v.push_back({{startTime[i],endTime[i]},profit[i]});
         }
-        sort(v.begin(), v.end(),
-              [](const std::pair<std::pair<int, int>, int>& a, const std::pair<std::pair<int, int>, int>& b) {
-                  return a.first < b.first; // Comparing based on the first element of the pairs within the pairs
-              });        
+        sort(v.begin(), v.end());        
         return ret(v,0);
     }
 };

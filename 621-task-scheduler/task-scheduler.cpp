@@ -1,8 +1,8 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        map<char,int>count;
-        map<int,priority_queue<pair<int,int>>>m;
+        unordered_map<char,int>count;
+        unordered_map<int,priority_queue<pair<int,int>>>m;
         for(int i=0;i<tasks.size();i++){
             count[tasks[i]]++;
         }
@@ -14,11 +14,7 @@ public:
         int st=1;
         
         while(!count.empty()){
-            /*cout<<st<<'\n';
-            for(auto it:m[st]){
-                cout<<it<<' ';
-            }
-            cout<<'\n';*/
+            
             if(m[st].empty()){
                 st++;
             }

@@ -1,37 +1,47 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        unordered_map<int,int>m;
-        for(auto it:tasks){
-            m[it]++;
+        map<char,int>count;
+        map<int,priority_queue<pair<int,int>>>m;
+        for(int i=0;i<tasks.size();i++){
+            count[tasks[i]]++;
         }
-        priority_queue<int>pq;
-        for(auto it:m){
-            pq.push(it.second);
+
+        for(auto it:count){
+            m[1].push({it.second,it.first});
         }
-        int ans=0;
-        while(!pq.empty()){
-            int time=0;
-            vector<int>tmp;
-            for(int i=0;i<n+1;i++){
-                if(!pq.empty()){
-                    tmp.push_back(pq.top()-1);
-                    time++;
-                    pq.pop();
-                }
+        
+        int st=1;
+        
+        while(!count.empty()){
+            /*cout<<st<<'\n';
+            for(auto it:m[st]){
+                cout<<it<<' ';
             }
-            for(auto it:tmp){
-                if(it>0){
-                    pq.push(it);
-                }
-            }
-            if(!pq.empty()){
-                ans+=n+1;
+            cout<<'\n';*/
+            if(m[st].empty()){
+                st++;
             }
             else{
-                ans+=time;
+                auto val=m[st].top();
+                m[st].pop();
+                count[val.second]--;
+                if(count[val.second]==0){
+                    count.erase(val.second);
+                    if(count.empty()){
+                        return st;
+                    }
+                }
+                else{
+                    m[st+n+1].push({val.first-1,val.second});
+                }
+                while(!m[st].empty()){
+                    m[st+1].push({m[st].top().first,m[st].top().second});
+                    m[st].pop();
+                }
+                st++;
             }
         }
-        return ans;
+        return st;
     }
 };

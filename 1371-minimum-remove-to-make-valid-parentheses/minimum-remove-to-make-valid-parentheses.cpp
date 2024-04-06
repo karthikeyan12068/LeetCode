@@ -2,7 +2,7 @@ class Solution {
 public:
     string minRemoveToMakeValid(string s) {
         stack<int>st;
-        unordered_map<int,int>m;
+        map<int,int>m;
         for(int i=0;i<s.length();i++){
             if(s[i]==')' || s[i]=='('){
                 if(s[i]==')'){
